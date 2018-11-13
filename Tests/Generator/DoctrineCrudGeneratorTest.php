@@ -162,11 +162,12 @@ class DoctrineCrudGeneratorTest extends GeneratorTest
         $content = file_get_contents($this->tmpDir.'/Controller/PostController.php');
         $strings = array(
             'namespace Foo\BarBundle\Controller;',
+            'use Symfony\Component\Routing\Annotation\Route;',
             'public function indexAction',
             'public function showAction',
             '@Route("/post")', // Controller level
-            '@Route("/", name="post_index")',
-            '@Route("/{id}", name="post_show")',
+            '@Route("/", name="post_index", methods={"GET"})',
+            '@Route("/{id}", name="post_show", methods={"GET"})',
         );
         foreach ($strings as $string) {
             $this->assertContains($string, $content);
@@ -202,11 +203,11 @@ class DoctrineCrudGeneratorTest extends GeneratorTest
         $strings = array(
             'namespace Foo\BarBundle\Controller\Blog;',
             '@Route("/blog_post")', // Controller level
-            '@Route("/", name="blog_post_index")',
-            '@Route("/{id}", name="blog_post_show")',
-            '@Route("/new", name="blog_post_new")',
-            '@Route("/{id}/edit", name="blog_post_edit")',
-            '@Route("/{id}", name="blog_post_delete")',
+            '@Route("/", name="blog_post_index", methods={"GET"})',
+            '@Route("/{id}", name="blog_post_show", methods={"GET"})',
+            '@Route("/new", name="blog_post_new", methods={"GET", "POST"})',
+            '@Route("/{id}/edit", name="blog_post_edit", methods={"GET", "POST"})',
+            '@Route("/{id}", name="blog_post_delete", methods={"DELETE"})',
             'public function showAction(Post $post)',
             '\'post\' => $post,',
             '\'posts\' => $posts,',
