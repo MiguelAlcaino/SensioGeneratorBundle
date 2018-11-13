@@ -173,6 +173,16 @@ class DoctrineCrudGeneratorTest extends GeneratorTest
             $this->assertContains($string, $content);
         }
 
+        $strings = array(
+            'use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;',
+            'use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;',
+            '@Method'
+        );
+        foreach ($strings as $string) {
+            $this->assertNotContains($string, $content);
+        }
+
+
         $content = file_get_contents($this->tmpDir.'/Controller/PostController.php');
         $strings = array(
             'public function newAction',
